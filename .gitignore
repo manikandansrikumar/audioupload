@@ -1,0 +1,24 @@
+.env
+.idea/
+.vscode/
+/__pycache/
+*.pyc
+/static/
+/media/
+*.log
+*.pem
+node_modules/
+web_builds/
+package-lock.json
+webpack-stats.prod.json
+.vscode
+media/
+medical/
+svn.log
+venv/
+# django migrations - need to have migration and init
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+fo_frontend/src/components/config/ConstantsURL.js

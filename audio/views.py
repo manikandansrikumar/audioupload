@@ -1,13 +1,11 @@
-from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 from .models import Song, AudioBook, Podcast
 from .serializers import SongSerializer, PodcastSerializer, AudioBookSerializer
 
 
-class AudioCreateView(generics.GenericAPIView):
+class AudioView(APIView):
 
     def post(self, request):
         try:
@@ -44,8 +42,7 @@ class AudioCreateView(generics.GenericAPIView):
 
 
 
-class UpdateAPIView(generics.GenericAPIView):
-    def post(self, request, audioFileType, audioFileID):
+    def put(self, request, audioFileType, audioFileID):
         try:
             data = request.data
             audioFileMetadata = data.get('audioFileMetadata')
@@ -96,8 +93,7 @@ class UpdateAPIView(generics.GenericAPIView):
 
 
 
-class DeleteAPIView(generics.GenericAPIView):
-    def post(self, request, audioFileType, audioFileID):
+    def delete(self, request, audioFileType, audioFileID):
         try:
             if audioFileType not in ['song', 'podcast', 'audiobook']:
                 return Response({'status': 'fail', 'message': 'Invalid audio type'}, status=status.HTTP_400_BAD_REQUEST)
@@ -138,8 +134,6 @@ class DeleteAPIView(generics.GenericAPIView):
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-class DetailsAPIVIew(generics.GenericAPIView):
     def get(self, request, audioFileType, audioFileID):
         try:
             if audioFileType == 'song':
